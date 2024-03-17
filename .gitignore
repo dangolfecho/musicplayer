@@ -1,0 +1,5 @@
+*.mp4
+db.sqlite3
+__py_cache__
+*.flac
+*.mp3

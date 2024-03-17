@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Edit Note</title>
+    </header>
+    <body>
+        <form action="edit" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <input name="edit_text" type="text" value="{{ note_text }}">
+                <label for="text">Text </label>
+            </fieldset>
+            <input type="submit" value="Confirm Edit">
+        </form>
+    </body>
+</html>

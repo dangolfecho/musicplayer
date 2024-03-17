@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Music Player - CS353 Assignment by Gideon</title>
+    </head>
+    <body>
+        {% load static %}
+        <div class="container">
+        <link rel="stylesheet" href="{% static 'static/style.css' %}">
+        <form action="addSong" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="song_file" multiple >
+            <input type="submit" value="Add songs">
+        </form>
+            {% for song in songs_list %}
+                <div class="song">
+                    <form action="playSong" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="song_file" value = {{ song.song_file }} >
+                        <h3>{{ song.song_file }}</h3>
+                        <input type="submit" value="Play">
+                    </form>
+                </div>
+            {% endfor %}
+        {% if song %}
+                <h3>{{ song }}</h3>
+            <audio controls autoplay loop id="player" src="{{ song }}"></audio>
+        {% else %}
+            <audio id="player" controls src=""></audio>
+        {% endif %}
+    </div>
+    </body>
+</html>

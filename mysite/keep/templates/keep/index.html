@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Google Keep remake
+        </title>
+    </head>
+    <body>
+        <h1>Take a note...</h1>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>{{ note.text }}</h1></legend>
+                <input type="text" name="text">
+                <label for="text"></label>
+            </fieldset>
+            <input type="submit" value="Enter">
+        </form>
+        {% if notes_list %}
+            <ul>
+                {% for note in notes_list %}
+                <div>
+                    <h2>{{  note.text }}</h2>
+                    <h3>{{ note.last_modified }}</h3>
+                    <form action="edit" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="edit_text" value = {{ note.text }}>
+                        <input type="hidden" name="edit_time" value = "{{ note.last_modified }}">
+                    <input  type="submit" value="Edit">
+                    </form>
+                    <form action="delete" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="del_text" value = {{ note.text }}>
+                        <input type="hidden" name="del_time" value = "{{ note.last_modified }}">
+                    <input id="delButton" type="submit" value="Mark as done and delete">
+                    </form>
+
+                </div>
+                    {% endfor %}
+            </ul>
+        {% else %} 
+            <h1> Nothing to be done! </h1>
+        {% endif %}
+    </body>
+</html>
